@@ -16,7 +16,7 @@ RUN npm run build
 
 
 # ==========================================
-# PHP / LARAVEL APPLICATION
+# LARAVEL APPLICATION
 # ==========================================
 FROM php:8.2-cli
 
@@ -41,17 +41,17 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# Copy compiled frontend assets
+# Copy compiled Vite assets
 COPY --from=frontend /app/public/build ./public/build
 
-# Install production dependencies
+# Install Laravel production dependencies
 RUN composer install \
     --no-dev \
     --prefer-dist \
     --no-interaction \
     --optimize-autoloader
 
-# Create required Laravel directories
+# Create Laravel directories
 RUN mkdir -p \
     storage/framework/cache \
     storage/framework/sessions \
