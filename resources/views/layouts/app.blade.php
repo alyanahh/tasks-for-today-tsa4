@@ -1,143 +1,38 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <title>@yield('title') | Tasks for Today</title>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
+            @include('layouts.navigation')
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6fb;
-            color: #172033;
-        }
+            <!-- Page Heading -->
+            @isset($header)
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endisset
 
-        nav {
-            background: #101827;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+            <!-- Page Content -->
+            <main>
+            {{ $slot ?? '' }}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 22px;
-            font-size: 14px;
-        }
-
-        nav a:hover {
-            color: #60a5fa;
-        }
-
-        .brand {
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        main {
-            max-width: 1050px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .hero {
-            background: linear-gradient(120deg, #101827, #2563eb);
-            color: white;
-            padding: 35px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 18px rgba(0,0,0,.06);
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #101827;
-            color: white;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 14px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .status {
-            background: #e5efff;
-            color: #2563eb;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #777;
-            font-size: 13px;
-        }
-
-        @media (max-width: 650px) {
-            nav {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            nav a {
-                margin: 5px;
-            }
-
-            .card {
-                overflow-x: auto;
-            }
-
-            table {
-                min-width: 550px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <nav>
-        <a href="/" class="brand">TASKS FOR TODAY</a>
-
-        <div>
-            <a href="/">Today</a>
-            <a href="/tasks">All Tasks</a>
-            <a href="/profile">Profile</a>
-            <a href="/about">About</a>
+            @yield('content')
+            </main>
         </div>
-    </nav>
-
-    <main>
-        @yield('content')
-    </main>
-
-    <footer>
-        Tasks for Today Management System | IT0049
-    </footer>
-
-</body>
+    </body>
 </html>
